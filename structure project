@@ -18,10 +18,10 @@
     └───/ mia
     |      ├── migrations
     |      ├── templates/mia
-    |      |     |-- list_mia.html
+    |      |     |-- mia_list.html
     |      |     |-- search.html
-    |      |     |-- new_mia.html
-    |      |     |-- edit_mia.html
+    |      |     |-- mia_new.html
+    |      |     |-- mia_edit.html
     |      |-- __init__.py
     |      |-- __init__.py
     |      |-- admin.py

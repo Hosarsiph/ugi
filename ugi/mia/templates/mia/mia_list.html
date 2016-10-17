@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="page-header">
+  <a href="{% url 'ugi.mia.views.mia_new' %}" class="btn btn-primary pull-right">Cargar MIA</a>
+  <h2>Manifestación de Impacto Ambeintal</h2>
+</div>
+  <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por número de bitácora"> -->
+    {% for mia in mias %}
+      <article resource_id="{{ mia.id }}">
+        <div class="col-xs-12 item-container">
+          <div class="col-xs-12 profile-avatar">
+            <div class="col-xs-4 item-thumb">
+              <a href="{{ item.detail_url }}"><img ng-src="{{ item.thumbnail_url }}" /></a>
+            </div>
+            <div class="col-xs-8 item-details">
+              <p class="item-meta"><span class="item-category">{{ item.category__gn_description }}</span></p>
+              <h4><a href="#">{{ mia.bitacora }}</a></h4>
+              <p class="abstract">{{ mia.nombre_proyecto|linebreaksbr}}</p>
+              <div class="row">
+                <div class="col-xs-12 item-items">
+                  <ul class="list-inline">
+                    <li><a href="/people/profile/{{ item.owner__username }}"><i class="fa fa-user"></i>{{ mia.user }}</a></li>
+                    <li><a href="#"><i class="fa fa-calendar-o"></i>{{ mia.fecha_ingreso}}</a></li>
+                    <li><a href="{{ item.detail_url }}"><i class="fa fa-eye"></i>{{ mia.evaluador }}</a></li>
+                    <li><a href="{{ item.detail_url }}#share"><i class="fa fa-share"></i>{{ item.share_count }}</a></li>
+                    <li><a href="{{ item.detail_url }}#rate"><i class="fa fa-star"></i>{{ item.rating }}</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+{% endblock %}

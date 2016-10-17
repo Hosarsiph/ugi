@@ -14,6 +14,8 @@ from django.db.models import Q
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 
+from ugi.mia.models import Mia
+
 
 def login_people(request):
     if not request.user.is_anonymous():
@@ -38,7 +40,14 @@ def login_people(request):
 
 @login_required(login_url='/login_people')
 def profile_detail(request):
+
     usuario = request.user
+
+    my_filter_qs = Q()
+    my_filter_qs = my_filter_qs | Q(user_id=request.user.id)
+    total_register = Mia.objects.filter(my_filter_qs).count()
+    print total_register
+
     return render_to_response('people/profile_detail.html', {'usuario':usuario}, context_instance=RequestContext(request))
 
 @login_required(login_url='/login_people')

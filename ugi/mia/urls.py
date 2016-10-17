@@ -12,5 +12,7 @@ js_info_dict = {
 }
 
 urlpatterns = patterns('',
-                        url(r'^/mia$','ugi.mia.views.profile_detail'),
+                        url(r'^mia_list/$', 'ugi.mia.views.mia_list', name='mia_list'),
+                        url(r'^mia_new/$', 'ugi.mia.views.mia_new', name='mia_new'),
+                        # url(r'^mia_detail/(?P<pk>[0-9]+)/$', 'ugi.mia.views.mia_detail', name='mia_detail'),
                         )
