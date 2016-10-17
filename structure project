@@ -1,0 +1,48 @@
+~/ugi
+    ├─── manage.py
+    ├─── project structure.txt
+    ├─── requirements.txt
+    └─── ugi
+    |      |-- settings.py
+    |      |-- urls.py
+    |      |-- wsgi.py
+    |      |-- __init__.py
+    |      └─── static
+    |      |      └─── css
+    |      |      |     |-- base.css
+    |      |      └─── img
+    |      |      └─── js
+    |      |            |-- search.js
+    └─── templates
+    |        |-- base.html
+    └───/ mia
+    |      ├── migrations
+    |      ├── templates/mia
+    |      |     |-- list_mia.html
+    |      |     |-- search.html
+    |      |     |-- new_mia.html
+    |      |     |-- edit_mia.html
+    |      |-- __init__.py
+    |      |-- __init__.py
+    |      |-- admin.py
+    |      |-- models.py
+    |      |-- tests.py
+    |      |-- views.py
+    |      |-- forms.py
+    |      |-- urls.py
+    └───/ people
+    |     ├── migrations
+    |     ├── templates/people
+    |     |     |-- login_people.html
+    |     |     |-- profile_detail.html
+    |     |-- __init__.py
+    |     |-- __init__.py
+    |     |-- admin.py
+    |     |-- models.py
+    |     |-- tests.py
+    |     |-- views.py
+    |     |     /--> def: profile_detail
+    |     |-- forms.py
+    |     |-- urls.py
+    |     |     /--> url: /
+    |     |     /--> url: /profile_detail
