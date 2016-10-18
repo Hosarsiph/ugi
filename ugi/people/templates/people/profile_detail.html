@@ -37,7 +37,10 @@
 	<div class="row">
 		<div class="container">
 			{% comment %} <p>Eres miembro desde el {{usuario.date_joined}}</p> {% endcomment %}
-
+			<div class="col-xs-6">Trámites Regitrados</div>
+			<div class="col-xs-6"><p>{{ mia_total.count }}</p></div>
+			<div class="col-xs-6">Trámites Resueltos</div>
+			<div class="col-xs-6"><p>{{ mia_total }}</p></div>
 		</div>
 	</div>
 

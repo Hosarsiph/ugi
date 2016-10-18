@@ -60,5 +60,5 @@ class Mia(models.Model):
     llave_pago = models.TextField(null=True, blank=True)
     user = models.ForeignKey(User)
 
-    def __unicode_(self):
-        return self.nombre_proyecto
+    def __str__(self):
+        return self.bitacora

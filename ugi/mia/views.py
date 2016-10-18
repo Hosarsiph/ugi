@@ -25,22 +25,6 @@ def mia_list(request):
     mias = Mia.objects.all()
     return render(request, 'mia/mia_list.html', {'mias': mias})
 
-
-# def mia_new(request):
-#
-#     if request.method == "POST":
-#             form = MiaForm(request.POST)
-#             if form.is_valid():
-#                 mia = form.save(commit=False)
-#                 mia.user = request.user
-#                 print mia.pk
-#                 mia.save()
-#                 return redirect('mia.views.mia_detail', pk=mia.pk)
-#     else:
-#         form = MiaForm()
-#     return render(request, 'mia/mia_edit.html', {'form': form})
-
-
 def mia_new(request):
 
     if request.method=='POST':
@@ -49,8 +33,10 @@ def mia_new(request):
             mia = formulario.save(commit=False)
             # user = User.objects.get(id=user_id)
             # print user
-            ultimo = Mia.objects.latest('bitacora')
-            print ultimo
+            ultimo = Mia.objects.latest('id').id
+            sumary = ultimo + 1
+            mia.id = sumary
+            print sumary
             mia.user = request.user
             mia.save()
             return redirect('mia.views.mia_detail', pk=mia.pk)

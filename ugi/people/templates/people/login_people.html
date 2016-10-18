@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
+{% load bootstrap %}
+
 {% block titulo %}Ingresa al sistema{% endblock %}
 {% block encabezado %}
 {% endblock %}
 {% block content %}
 <div class="row">
 	<div class="container">
-		<form class="form-group" id='formulario' method='post' action=''>{% csrf_token %}
-			<table>{{formulario}}</table>
-			<p><input type='submit' value='Ingresar'/></p>
-		</form>
+		<div class="col-xs-6 col-sm-4">
+			<form class="form-group" id='formulario' method='post' action=''>{% csrf_token %}
+				<table>{{formulario|bootstrap}}</table>
+				<p><input class="btn btn-primary" type='submit' value='Ingresar'/></p>
+			</form>
+		</div>
 	</div>
 </div>
 {% endblock %}

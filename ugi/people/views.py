@@ -45,10 +45,9 @@ def profile_detail(request):
 
     my_filter_qs = Q()
     my_filter_qs = my_filter_qs | Q(user_id=request.user.id)
-    total_register = Mia.objects.filter(my_filter_qs).count()
-    print total_register
+    total_register = Mia.objects.filter(my_filter_qs)
 
-    return render_to_response('people/profile_detail.html', {'usuario':usuario}, context_instance=RequestContext(request))
+    return render_to_response('people/profile_detail.html', {'usuario':usuario, 'mia_total': total_register}, context_instance=RequestContext(request))
 
 @login_required(login_url='/login_people')
 def logout_people(request):
