@@ -2,7 +2,7 @@
 
 {% block content %}
 <form id='formulario' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
-  {{form.as_p}}
+  {{forma.as_p}}
   <p><input type='submit' value='Registrar'/></p>
 </form>
 {% endblock %}

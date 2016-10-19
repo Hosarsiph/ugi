@@ -3,4 +3,17 @@ subsector, tipo_instalacion, ubicacion_instalacion, evaluador, fecha_asigna_eval
 sentido_resolucion, vigencia_resolucion, fecha_publica_extracto, nume_of_apercibimiento, fecha_of_apercibimiento, fecha_notica_apercibimiento, fecha_termi_apercibimiento,
 fecha_entrega_apercibimiento, dias_transcurre_apercibimiento, numero_of_infoadicional, fecha_of_infoadicional, fecha_notifi_of_infoadicional, fecha_vernci_of_infoadicional, 
 fecha_entrega_of_infoadicional, dias_transcurre_of_infoadicional, observasiones, numero_of_aplia_plazo, dias_emision_resolucion, resolucion_tiempo, dia_actual, lati, longi, dias_feriado,
-dias_habiles, estatus_proyect, llave_pago, user_id) FROM '/home/archie/Escritorio/miasutf8.csv' CSV HEADER DELIMITER ',';
+dias_habiles, estatus_proyect, llave_pago, user_id) FROM '/home/archie/Documentos/mias.csv' CSV HEADER DELIMITER ',';
+
+
+
+select * from mia_mia
+
+update mia_mia set tramite_tiempo='SI' where tramite_tiempo='1';
+
+update mia_mia set tramite_tiempo='NO' where tramite_tiempo='0';
+
+update mia_mia set resolucion_tiempo='SI' where resolucion_tiempo='1';
+
+update mia_mia set resolucion_tiempo='NO' where resolucion_tiempo='0';
+

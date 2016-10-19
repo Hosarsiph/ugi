@@ -96,7 +96,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'ugi',
         'USER': 'postgres',
-        'PASSWORD': 'Geointeligencia*2016', # Geoint*2016
+        'PASSWORD': 'Geoint*2016', # Geoint*2016
         'HOST': 'localhost',
         'PORT': '5432',
     }

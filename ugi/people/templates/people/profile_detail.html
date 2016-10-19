@@ -4,43 +4,64 @@
 {% endblock %}
 
 {% block profile %}
-{% if request.user.is_authenticated %}
-	<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">Logo</a>
-			</div>
-			<div class="collapse navbar-collapse" id="myNavbar">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Inicio</a></li>
+	{% if request.user.is_authenticated %}
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Logo</a>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="/">Inicio</a></li>
 
-					<li><a href="{% url 'ugi.mia.views.mia_list' %}">MIA</a></li>
-					<li><a href="#">CUSFT</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span> {{usuario.username|upper}} </a></li>
-					<li><a href='/logout_people'>Cerra sesión</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-globe"></span> Última visita {{usuario.last_login}}</a></li>
-				</ul>
+						<li><a href="{% url 'ugi.mia.views.mia_list' %}">MIA</a></li>
+						<li><a href="#">CUSFT</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#"><span class="glyphicon glyphicon-user"></span> {{usuario.username|upper}} </a></li>
+						<li><a href='/logout_people'>Cerra sesión</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-globe"></span> Última visita {{usuario.last_login}}</a></li>
+					</ul>
+				</div>
 			</div>
-		</div>
-	</nav>
-{% endif %}
+		</nav>
+	{% endif %}
 {% endblock %}
 
 {% block content %}
 	<div class="row">
 		<div class="container">
 			{% comment %} <p>Eres miembro desde el {{usuario.date_joined}}</p> {% endcomment %}
-			<div class="col-xs-6">Trámites Regitrados</div>
-			<div class="col-xs-6"><p>{{ mia_total.count }}</p></div>
-			<div class="col-xs-6">Trámites Resueltos</div>
-			<div class="col-xs-6"><p>{{ mia_total }}</p></div>
+			<table class="table">
+		    <thead>
+		      <tr>
+		        <th>Trámites registrados</th>
+		        <th>
+							Resueltos
+						</br>
+							Resolución en tiempo / Fuera de tiempo
+						</th>
+		        <th>
+							Trámite
+						</br>
+							Trámite en tiempo / Fuera de tiempo
+						</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr class="success">
+		        <td>{{ mia_total.count }}</td>
+						<td>{{ resueltos_si }} / {{ resueltos_no }}</td>
+		        <td>{{ trami_si }} / {{ trami_no }}</td>
+		        <td></td>
+		      </tr>
+		    </tbody>
+		  </table>
 		</div>
 	</div>
 

@@ -1,11 +1,40 @@
 {% extends 'base.html' %}
 
+{% block profile %}
+	{% if request.user.is_authenticated %}
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Logo</a>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="/">Inicio</a></li>
+
+						<li><a href="{% url 'ugi.mia.views.mia_list' %}">MIA</a></li>
+						<li><a href="#">CUSFT</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#"><span class="glyphicon glyphicon-user"></span> {{usuario.username|upper}} </a></li>
+						<li><a href='/logout_people'>Cerra sesión</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-globe"></span> Última visita {{usuario.last_login}}</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	{% endif %}
+{% endblock %}
 
 {% block content %}
-<div class="page-header">
-  <a href="{% url 'ugi.mia.views.mia_new' %}" class="btn btn-primary pull-right">Cargar MIA</a>
-  <h2>Manifestación de Impacto Ambeintal</h2>
-</div>
+  <div class="page-header">
+    <a href="{% url 'ugi.mia.views.mia_new' %}" class="btn btn-primary pull-right">Cargar MIA</a>
+    <h2>Manifestación de Impacto Ambeintal</h2>
+  </div>
   <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por número de bitácora"> -->
     {% for mia in mias %}
       <article resource_id="{{ mia.id }}">
@@ -16,7 +45,7 @@
             </div>
             <div class="col-xs-8 item-details">
               <p class="item-meta"><span class="item-category">{{ item.category__gn_description }}</span></p>
-              <h4><a href="#">{{ mia.bitacora }}</a></h4>
+              <h4><a href="{% url 'ugi.mia.views.mia_detail' pk=post.pk %}">{{ mia.bitacora }}</a></h4>
               <p class="abstract">{{ mia.nombre_proyecto|linebreaksbr}}</p>
               <div class="row">
                 <div class="col-xs-12 item-items">

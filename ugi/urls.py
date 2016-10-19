@@ -28,7 +28,7 @@ urlpatterns = patterns('',
                         url(r'^admin/', include(admin.site.urls)),
 
                          # Mia views
-                         (r'^/', include('ugi.mia.urls')),
+                         (r'^', include('ugi.mia.urls')),
 
                          # People views
                          (r'^', include('ugi.people.urls')),
