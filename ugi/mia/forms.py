@@ -2,6 +2,7 @@
 
 from django.forms import ModelForm
 from django import forms
+from django.contrib.admin import widgets
 
 from ugi.mia.models import Mia
 

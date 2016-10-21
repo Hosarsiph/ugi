@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load bootstrap %}
 
 {% block content %}
     <div class="page-header">
       <h2>Manifestación de Impacto Ambeintal</h2>
     </div>
     <form method="POST" class="post-form">{% csrf_token %}
-        {{ formulario.as_p }}
+        {{ formulario|bootstrap }}
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
 {% endblock %}

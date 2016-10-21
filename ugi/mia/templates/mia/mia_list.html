@@ -45,7 +45,7 @@
             </div>
             <div class="col-xs-8 item-details">
               <p class="item-meta"><span class="item-category">{{ item.category__gn_description }}</span></p>
-              <h4><a href="{% url 'ugi.mia.views.mia_detail' pk=post.pk %}">{{ mia.bitacora }}</a></h4>
+              <h4><a href="{% url 'ugi.mia.views.mia_detail' pk=mia.pk %}">{{ mia.bitacora }}</a></h4>
               <p class="abstract">{{ mia.nombre_proyecto|linebreaksbr}}</p>
               <div class="row">
                 <div class="col-xs-12 item-items">

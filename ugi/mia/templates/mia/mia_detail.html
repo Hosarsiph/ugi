@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form id='formulario' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
-  {{forma.as_p}}
-  <p><input type='submit' value='Registrar'/></p>
-</form>
+  <div class="page-header">
+    <a href="{% url 'ugi.mia.views.mia_edit' pk=mia.pk %}" class="btn btn-primary pull-right">Editar</a>
+    <h2>{{ mia.bitacora }}</h2>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-8">.col-xs-12 .col-sm-6 .col-md-8</div>
+  <div class="col-xs-6 col-md-4"> INFORMACIÓN </div>
 {% endblock %}

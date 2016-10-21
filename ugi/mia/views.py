@@ -19,7 +19,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .forms import MiaForm
 from .models import Mia
 
-def mia_list(request, pk):
+def mia_list(request):
 
     mias = Mia.objects.all()
     usuario = request.user
@@ -46,23 +46,21 @@ def mia_new(request):
 
 def mia_detail(request, pk):
 
-    print pk
-    post = get_object_or_404(Mia, pk=pk)
-    forma = MiaForm(instance=post)
-    return render_to_response('mia/mia_detail.html', {'forma': forma}, context_instance=RequestContext(request))
+        mia = get_object_or_404(Mia, pk=pk)
+        return render(request, 'mia/mia_detail.html', {'mia': mia})
 
 
 def mia_edit(request, pk):
-        post = get_object_or_404(Mia, pk=pk)
-        print post
+        mia = get_object_or_404(Mia, pk=pk)
+        print mia
         if request.method == "POST":
-            form = MiaForm(request.POST, instance=post)
+            form = MiaForm(request.POST, instance=mia)
             if form.is_valid():
-                post = form.save(commit=False)
-                post.author = request.user
-                post.save()
-                return redirect('ugi.mia.views.mia_list', pk=post.pk)
+                mia = form.save(commit=False)
+                mia.author = request.user
+                mia.save()
+                return redirect('ugi.mia.views.mia_detail', pk=mia.pk)
         else:
-            print post
-            form = MiaForm(instance=post)
+            print mia
+            form = MiaForm(instance=mia)
         return render(request, 'mia/mia_edit.html', {'form': form})
