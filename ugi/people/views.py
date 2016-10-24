@@ -1,5 +1,6 @@
 import json
 import ast
+import datetime
 
 from django.shortcuts import render
 from django.contrib.auth.models import User
@@ -45,14 +46,13 @@ def profile_detail(request):
 
     my_filter_qs = Q()
     my_filter_qs = my_filter_qs | Q(user_id=request.user.id)
+    # obtengo todos los registros que ingreso en usuario registrado.
     total_register = Mia.objects.filter(my_filter_qs)
 
     resueltos_si = Mia.objects.filter(my_filter_qs & Q(resolucion_tiempo='SI')).count()
     resueltos_no = Mia.objects.filter(my_filter_qs & Q(resolucion_tiempo='NO')).count()
-
     trami_si = Mia.objects.filter(my_filter_qs & Q(tramite_tiempo='SI')).count()
     trami_no = Mia.objects.filter(my_filter_qs & Q(tramite_tiempo='NO')).count()
-
     return render_to_response('people/profile_detail.html', {'usuario':usuario, 'mia_total': total_register, 'trami_si': trami_si, 'trami_no': trami_no, 'resueltos_si': resueltos_si, 'resueltos_no': resueltos_no}, context_instance=RequestContext(request))
 
 @login_required(login_url='/login_people')
