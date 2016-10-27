@@ -25,13 +25,13 @@ class Mia(models.Model):
         ('RESIDUOS', 'RESIDUOS'),
     )
     lbl_tipo_instalacion = (
-        ('EXPLORACION', 'EXPLORACIÓN'),
-        ('ESTACION DE SERVICIO', 'ESTACIÓN DE SERVICIO'),
-        ('ALMACENAMIENTO', 'ALMACENAMIENTO'),
+        ('EXPLORACION', 'EXPLORACIÓN'), #
+        ('ESTACION DE SERVICIO', 'ESTACIÓN DE SERVICIO'), #
+        ('ALMACENAMIENTO', 'ALMACENAMIENTO'), #
         ('TRANSPORTE', 'TRANSPORTE'),
         ('PLANTA DE DISTRIBUCION', 'PLANTA DE DISTRIBUCIÓN'),
-        ('DES DE DISTRIBUCION', 'RED DE DISTRIBUCIÓN'),
-        ('PROSPECCION', 'PROSPECCIÓN'),
+        ('RED DE DISTRIBUCION', 'RED DE DISTRIBUCIÓN'), #
+        ('PROSPECCION', 'PROSPECCIÓN'), #
         ('DESCOMPRENSION DE GAS NATURAL', 'DESCOMPRENSIÓN DE GAS NATURAL'),
     )
     lbl_ubicacion_instalacion = (

@@ -33,6 +33,7 @@
 {% block content %}
   <div class="page-header">
     <a href="{% url 'ugi.mia.views.mia_new' %}" class="btn btn-primary pull-right">Cargar MIA</a>
+		<a href="#" id="target" class="btn btn-primary pull-right">Alert</a>
     <h2>Manifestación de Impacto Ambeintal</h2>
   </div>
   <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por número de bitácora"> -->
@@ -63,4 +64,5 @@
         </div>
       </article>
     {% endfor %}
+
 {% endblock %}
