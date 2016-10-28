@@ -2,6 +2,7 @@
 
 import json
 import ast
+import re
 
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
@@ -14,19 +15,18 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.core import serializers
-from django.views.decorators.csrf import csrf_exempt
 
 from .forms import MiaForm
 from .models import Mia
 
 from itertools import groupby
 
-def mia_list(request):
-
-    mias = Mia.objects.all()
-    usuario = request.user
-
-    return render(request, 'mia/mia_list.html', {'mias': mias, 'usuario': usuario})
+# def mia_list(request):
+#
+#     mias = Mia.objects.all()
+#     usuario = request.user
+#
+#     return render(request, 'mia/mia_list.html', {'mias': mias, 'usuario': usuario})
 
 def mia_new(request):
 
@@ -92,7 +92,56 @@ def filter_date(request):
         lb_cofemer = Mia.objects.filter(Q(tipo_tramite='COFEMER') & Q(subsector='GAS NATURAL') & Q(estatus='EN TRÁMITE')).count()
         leg_lb.append(lb_cofemer)
 
-
-
-
         return HttpResponse(json.dumps(objectQuerySet), content_type="application/json")
+
+"""
+########################################################## .:: DEV SEARCH  ::. ########################################################################################
+"""
+def normalize_query(query_string,
+                    findterms=re.compile(r'"([^"]+)"|(\S+)').findall,
+                    normspace=re.compile(r'\s{2,}').sub):
+    ''' Splits the query string in invidual keywords, getting rid of unecessary spaces
+        and grouping quoted words together.
+        Example:
+
+        >>> normalize_query('  some random  words "with   quotes  " and   spaces')
+        ['some', 'random', 'words', 'with quotes', 'and', 'spaces']
+
+    '''
+    return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
+
+def get_query(query_string, search_fields):
+    ''' Returns a query, that is a combination of Q objects. That combination
+        aims to search keywords within a model by testing the given search fields.
+
+    '''
+    query = None # Query to search for every search term
+    terms = normalize_query(query_string)
+    for term in terms:
+        or_query = None # Query to search for a given term in each field
+        for field_name in search_fields:
+            q = Q(**{"%s__icontains" % field_name: term})
+            if or_query is None:
+                or_query = q
+            else:
+                or_query = or_query | q
+        if query is None:
+            query = or_query
+        else:
+            query = query & or_query
+    return query
+
+
+def mia_list(request):
+
+    query_string = ''
+    found_entries = None
+    if ('q' in request.GET) and request.GET['q'].strip():
+        query_string = request.GET['q']
+
+        entry_query = get_query(query_string, ['bitacora', 'body',])
+        found_entries = Mia.objects.filter(bitacora=query_string)
+
+    return render_to_response('mia/mia_list.html',
+                          { 'query_string': query_string, 'found_entries': found_entries },
+                          context_instance=RequestContext(request))

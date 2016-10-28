@@ -7,12 +7,14 @@
 {% block content %}
 <div class="row">
 	<div class="container">
-		<div class="col-xs-6 col-sm-4">
-			<form class="form-group" id='formulario' method='post' action=''>{% csrf_token %}
-				<table>{{formulario|bootstrap}}</table>
-				<p><input class="btn btn-primary" type='submit' value='Ingresar'/></p>
-			</form>
-		</div>
+		<div class="col-sm-7 well">
+      <div class="well">
+				<form class="form-group" id='formulario' method='post' action=''>{% csrf_token %}
+					<table>{{formulario|bootstrap}}</table>
+					<p><input class="btn btn-primary" type='submit' value='Ingresar'/></p>
+				</form>
+      </div>
+    </div>
 	</div>
 </div>
 {% endblock %}

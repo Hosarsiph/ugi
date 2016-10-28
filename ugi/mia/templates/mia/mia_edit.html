@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
+{% load bootstrap %}
 
 {% block content %}
-<form id='formulario' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
-  {{form.as_p}}
-  <p><input type='submit' value='Registrar'/></p>
-</form>
+  <div class="page-header">
+    <a href="/mia/" class="btn btn-primary pull-right">Buscar otro</a>
+    <h2>Edición para {{ form.bitacora }} </h2>
+  </div>
+  <form id='formulario' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
+    {{form|bootstrap}}
+    <p><input type='submit' value='Registrar'/></p>
+  </form>
 {% endblock %}

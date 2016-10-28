@@ -14,18 +14,12 @@
 						<span class="icon-bar"></span>
 					</button>
 					<a class="navbar-brand" href="#">Logo</a>
+					<a class="navbar-brand" href="/">Inicio</a>
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
-					<ul class="nav navbar-nav">
-						<li class="active"><a href="/">Inicio</a></li>
-
-						<li><a href="{% url 'ugi.mia.views.mia_list' %}">MIA</a></li>
-						<li><a href="#">CUSFT</a></li>
-					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="#"><span class="glyphicon glyphicon-user"></span> {{usuario.username|upper}} </a></li>
 						<li><a href='/logout_people'>Cerra sesión</a></li>
-						<li><a href="#"><span class="glyphicon glyphicon-globe"></span> Última visita {{usuario.last_login}}</a></li>
 					</ul>
 				</div>
 			</div>
@@ -34,35 +28,71 @@
 {% endblock %}
 
 {% block content %}
-	<div class="row">
-		<div class="container">
-			{% comment %} <p>Eres miembro desde el {{usuario.date_joined}}</p> {% endcomment %}
-			<table class="table">
-		    <thead>
-		      <tr>
-		        <th>Trámites registrados</th>
-		        <th>
-							Resueltos
-						</br>
-							Resolución en tiempo / Fuera de tiempo
-						</th>
-		        <th>
-							Trámite
-						</br>
-							Trámite en tiempo / Fuera de tiempo
-						</th>
-		      </tr>
-		    </thead>
-		    <tbody>
-		      <tr class="success">
-		        <td>{{ mia_total.count }}</td>
-						<td>{{ resueltos_si }} / {{ resueltos_no }}</td>
-		        <td>{{ trami_si }} / {{ trami_no }}</td>
-		        <td></td>
-		      </tr>
-		    </tbody>
-		  </table>
-		</div>
-	</div>
+	<div class="container text-center">
+	  <div class="row">
+	    <div class="col-sm-3 well">
+	      <div class="well">
+	        <p><a href="#">Perfil</a></p>
+	        <!-- <img src="bird.jpg" class="img-circle" height="65" width="65" alt="Avatar"> -->
+					<span class="glyphicon glyphicon-user">
+					<h4>{{usuario.first_name}}</h4>
+					<h4>{{usuario.last_name}}</h4>
+	      </div>
+	      <div class="well">
+	        <p><a href="#">Trámites</a></p>
+					<ul class="list-group">
+					  <li class="list-group-item">
+					    <span class="badge">{{ mia_total.count }}</span>
+					  <a href="{% url 'ugi.mia.views.mia_list' %}">MIA</a></li>
+					  </li>
+					</ul>
+	      </div>
+	    </div>
+	    <div class="col-sm-7">
 
+	      <div class="row">
+	        <div class="col-sm-12">
+	          <div class="panel panel-default text-left">
+	            <div class="panel-body">
+	              <p contenteditable="true">Estado de trámites por evaluador</p>
+	              </button>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+
+				{% for key, value in evalua_to_dic.items %}
+				<div class="row">
+	        <div class="col-sm-3">
+	          <div class="well">
+	           <p> {{ key }} </p>
+	          </div>
+	        </div>
+	        <div class="col-sm-9">
+	          <div class="well">
+							{% for i in value %}
+		          <span href="#" class="label label-primary">{{ i.bitacora }}</span>
+							{% endfor %}
+	          </div>
+	        </div>
+	      </div>
+				{% endfor %}
+	    </div>
+	    <div class="col-sm-2 well">
+	      <div class="thumbnail">
+	        <p>Upcoming Events:</p>
+	        <img src="paris.jpg" alt="Paris" width="400" height="300">
+	        <p><strong>Paris</strong></p>
+	        <p>Fri. 27 November 2015</p>
+	        <button class="btn btn-primary">Info</button>
+	      </div>
+	      <div class="well">
+	        <p>ADS</p>
+	      </div>
+	      <div class="well">
+	        <p>ADS</p>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 {% endblock %}
