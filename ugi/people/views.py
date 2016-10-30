@@ -64,6 +64,7 @@ def profile_detail(request):
     # ################### WARNING DELETE FROM DATA BASE #######################
     # obtengo en nombre de los evaluadores, si se repiten se eliminan dejando solo uno.
     evaluador = []
+    newlist = []
     # for placeholder in Mia.objects.all().order_by('evaluador'):
     #     if placeholder.evaluador in evaluador:
     #         placeholder.delete()
@@ -71,11 +72,25 @@ def profile_detail(request):
     #         evaluador.append(placeholder.evaluador)
     ############################################################################
 
+    eva1 =  Mia.objects.values_list('evaluador').order_by('evaluador')
+    # x.append([4, 5])
+    evaluador.append(eva1)
+
+    for i in evaluador[0]:
+      if i not in newlist:
+        newlist.append(i)
+
     # convierte lista evaluador a diccionario { E1:0, E2:0, E3:0, E4:0, ..... }
-    evalua_to_dic = dict((el,0) for el in evaluador)
+    # evalua_to_dic = dict((el,0) for el in evaluador)
+    evalua_to_dic = {}
+
+    for v in newlist:
+        list1 = Mia.objects.filter(evaluador=v)
+        evalua_to_dic[v] = list1
+
     # select * from mia where evaluador = [evaluador]
-    list1 = Mia.objects.filter(evaluador='ALEJANDRO MARTÍNEZ')
-    evalua_to_dic['ALEJANDRO MARTÍNEZ'] = list1
+    # list1 = Mia.objects.filter(evaluador='ALEJANDRO MARTÍNEZ')
+    # evalua_to_dic['ALEJANDRO MARTÍNEZ'] = list1
 
     return render_to_response('people/profile_detail.html', {
                                                             'usuario':usuario,
