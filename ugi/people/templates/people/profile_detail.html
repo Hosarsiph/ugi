@@ -6,7 +6,7 @@
 {% block content %}
 	<div class="container text-center">
 	  <div class="row">
-	    <div class="col-sm-3 well">
+	    <div class="col-sm-2 well">
 	      <div class="well">
 					<span class="glyphicon glyphicon-user">
 					<h4>{{usuario.first_name}}</h4>
@@ -22,14 +22,13 @@
 					</ul>
 	      </div>
 	    </div>
-	    <div class="col-sm-7">
-
+	    <div class="col-sm-10">
 	      <div class="row">
 	        <div class="col-sm-12">
 	          <div class="panel panel-default text-left">
 	            <div class="panel-body">
 								<div class="col-xs-6"><p contenteditable="false">EVALUADOR</p></div>
-  							<div class="col-xs-6"><p contenteditable="false">TOTAL DE TRÁMITES</p></div>
+  							<div class="col-xs-6"><p contenteditable="false">TRÁMITES</p></div>
 	              </button>
 	            </div>
 	          </div>
@@ -39,57 +38,80 @@
 				<div class="row">
 	        <div class="col-sm-3">
 	          <div class="well">
-	           <p> {{ key }} </p>
+	           <h5><strong> {{ key }} </strong></h5>
+						  <p><a href="#">Resueltos <span class="badge">3</span></a></p>
+							<p><a href="#">En proceso <span class="badge">3</span></a></p>
 	          </div>
 	        </div>
 	        <div class="col-sm-9">
 	          <div class="well">
-							<button class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">{{ value|length }}</button>
-							<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-							  <div class="modal-dialog modal-lg">
-							    <div class="modal-content">
-										<table class="table">
-										  <thead class="thead-inverse">
-										    <tr>
-										      <!-- <th>#</th> -->
-										      <th>Bitácora</th>
-										      <th>Tipo de Trámite</th>
-										      <th>Subsector</th>
-													<th>Estaus</th>
-										    </tr>
-										  </thead>
-										  <tbody>
-												{% for i in value %}
-												<tr>
-													<!-- <th scope="row">#</th> -->
-													<td><a href="{% url 'ugi.mia.views.mia_detail' pk=i.pk %}">{{ i.bitacora }}</a></td>
-													<td>{{ i.tipo_tramite }}</td>
-													<td>{{ i.subsector }}</td>
-													<td>{{ i.estatus }}</td>
-												</tr>
-												{% endfor %}
-										  </tbody>
-										</table>
+							<!--  -->
+							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+							  <div class="panel panel-default">
+							    <div class="panel-heading" role="tab" id="headingOne">
+							      <h4 class="panel-title">
+							        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{ forloop.counter }}" aria-expanded="true" aria-controls="collapseOne{{ forloop.counter }}">
+							          Total de solicitudes: {{ value.count }}
+							        </a>
+							      </h4>
+							    </div>
+							    <div id="collapseOne{{ forloop.counter }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+							      <div class="panel-body">
+											<table class="table">
+												<thead class="thead-inverse">
+													<tr>
+														<th>#</th>
+														<th>Resueltos</th>
+														<th>En tiempo</th>
+														<th>En Proceso</th>
+														<th>En tiempo</th>
+														<th>Días</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for i in value %}
+														<tr>
+															<th scope="row">{{ forloop.counter }}</th>
+															<td>
+																{% if i.estatus == 'RESUELTO' %}
+																	<a href="{% url 'ugi.mia.views.mia_detail' pk=i.pk %}"><span class="label label-success">{{ i.bitacora }}</span></a>
+																{% endif %}
+															</td>
+															<td>
+																{% if i.estatus == 'RESUELTO' %}
+																	<span class="label label-info">SI</span>
+																{% endif %}
+															</td>
+															<td>
+																{% if i.estatus == 'EN TRÁMITE' %}
+																	<a href="{% url 'ugi.mia.views.mia_detail' pk=i.pk %}"><span class="label label-danger">{{ i.bitacora }}</span></a>
+																{% endif %}
+															</td>
+															<td>
+																{% if i.estatus == 'EN TRÁMITE' %}
+																	<span class="label label-warning">SI</span>
+																{% endif %}
+															</td>
+															<td>
+																{% if i.estatus == 'EN TRÁMITE' %}
+																	<span class="label label-warning">#</span>
+																{% endif %}
+															</td>
+														</tr>
+													{% endfor %}
+												</tbody>
+											</table>
+							      </div>
 							    </div>
 							  </div>
 							</div>
-
+							<!--  -->
 	          </div>
 	        </div>
 	      </div>
 				{% endfor %}
 	    </div>
-	    <div class="col-sm-2 well">
-	      <div class="thumbnail">
-	        <p>add</p>
-	      </div>
-	      <div class="well">
-	        <p>add</p>
-	      </div>
-	      <div class="well">
-	        <p>add</p>
-	      </div>
-	    </div>
+
 	  </div>
 	</div>
 {% endblock %}

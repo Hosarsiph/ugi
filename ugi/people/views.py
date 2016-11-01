@@ -63,8 +63,6 @@ def profile_detail(request):
 
     # ################### WARNING DELETE FROM DATA BASE #######################
     # obtengo en nombre de los evaluadores, si se repiten se eliminan dejando solo uno.
-    evaluador = []
-    newlist = []
     # for placeholder in Mia.objects.all().order_by('evaluador'):
     #     if placeholder.evaluador in evaluador:
     #         placeholder.delete()
@@ -72,8 +70,9 @@ def profile_detail(request):
     #         evaluador.append(placeholder.evaluador)
     ############################################################################
 
-    eva1 =  Mia.objects.values_list('evaluador').order_by('evaluador')
-    # x.append([4, 5])
+    evaluador = []
+    newlist = []
+    eva1 =  Mia.objects.values_list('evaluador', flat=True).order_by('evaluador')
     evaluador.append(eva1)
 
     for i in evaluador[0]:
@@ -84,9 +83,15 @@ def profile_detail(request):
     # evalua_to_dic = dict((el,0) for el in evaluador)
     evalua_to_dic = {}
 
+    # TRAMITES POR EVALUADOR
     for v in newlist:
         list1 = Mia.objects.filter(evaluador=v)
+        total_resueltos = Mia.objects.values_list('estatus').filter(evaluador=v, estatus='RESUELTO').count()
         evalua_to_dic[v] = list1
+
+    # TIEMPOS POR EVALUADOR
+
+    # print evalua_to_dic
 
     # select * from mia where evaluador = [evaluador]
     # list1 = Mia.objects.filter(evaluador='ALEJANDRO MARTÍNEZ')
@@ -94,9 +99,9 @@ def profile_detail(request):
 
     return render_to_response('people/profile_detail.html', {
                                                             'usuario':usuario,
-                                                            'tramite': tramite,
                                                             'evalua_to_dic': evalua_to_dic,
                                                             }, context_instance=RequestContext(request))
+
 
 @login_required(login_url='/login_people')
 def logout_people(request):
