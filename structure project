@@ -46,3 +46,19 @@
     |     |-- urls.py
     |     |     /--> url: /
     |     |     /--> url: /profile_detail
+
+
+
+
+TIEMPOS DE TRÁMITES
+
+COFEMER - 10 DIAS
+IP - 20 DIAS
+MIA-P - 60 DIAS
+MIA-P/ERA - 60 DIAS
+DTU - 60 DIAS
+
+
+INICIO DE TRÁMITE / FIN DE TRÁMITE
+
+fecha_ingreso         fecha_emisi_resolu

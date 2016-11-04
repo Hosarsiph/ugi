@@ -16,7 +16,7 @@
 	        <h5>Trámites</h5>
 					<ul class="list-group">
 					  <li class="list-group-item">
-					    <span class="badge">{{ mia_total.count }}</span>
+					    <!-- <span class="badge">{{ mia_total.count }}</span> -->
 					  <a href="{% url 'ugi.mia.views.mia_list' %}">MIA</a></li>
 					  </li>
 					</ul>
@@ -39,8 +39,8 @@
 	        <div class="col-sm-3">
 	          <div class="well">
 	           <h5><strong> {{ key }} </strong></h5>
-						  <p><a href="#">Resueltos <span class="badge">3</span></a></p>
-							<p><a href="#">En proceso <span class="badge">3</span></a></p>
+						  <p><a href="#">Resueltos <span class="badge">{{ value.1 }}</span></a></p>
+							<p><a href="#">En proceso <span class="badge">{{ value.2 }}</span></a></p>
 	          </div>
 	        </div>
 	        <div class="col-sm-9">
@@ -51,7 +51,7 @@
 							    <div class="panel-heading" role="tab" id="headingOne">
 							      <h4 class="panel-title">
 							        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{ forloop.counter }}" aria-expanded="true" aria-controls="collapseOne{{ forloop.counter }}">
-							          Total de solicitudes: {{ value.count }}
+							          Total de solicitudes: {{ value.0.count }}
 							        </a>
 							      </h4>
 							    </div>
@@ -69,7 +69,7 @@
 													</tr>
 												</thead>
 												<tbody>
-													{% for i in value %}
+													{% for i in value.0 %}
 														<tr>
 															<th scope="row">{{ forloop.counter }}</th>
 															<td>
@@ -78,7 +78,7 @@
 																{% endif %}
 															</td>
 															<td>
-																{% if i.estatus == 'RESUELTO' %}
+																{% if i.estatus == 'RESUELTO' and i.tramite_tiempo == 'SI' %}
 																	<span class="label label-info">SI</span>
 																{% endif %}
 															</td>
@@ -88,13 +88,15 @@
 																{% endif %}
 															</td>
 															<td>
-																{% if i.estatus == 'EN TRÁMITE' %}
+																{% if i.estatus == 'EN TRÁMITE' and i.tramite_tiempo == 'SI' %}
 																	<span class="label label-warning">SI</span>
 																{% endif %}
 															</td>
 															<td>
 																{% if i.estatus == 'EN TRÁMITE' %}
-																	<span class="label label-warning">#</span>
+
+																		<span class="label label-warning">{{ value.3 }}</span>
+
 																{% endif %}
 															</td>
 														</tr>

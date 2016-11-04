@@ -101,5 +101,5 @@ class Mia(models.Model):
     llave_pago = models.CharField(max_length=32, null=True, blank=True)
     user = models.ForeignKey(User)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.bitacora

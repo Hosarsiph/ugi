@@ -3,6 +3,7 @@
 import json
 import ast
 import datetime
+from datetime import date
 
 from django.shortcuts import render
 from django.contrib.auth.models import User
@@ -17,6 +18,7 @@ from django.db.models import Q
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Count
+from django.db.models import Avg
 
 from ugi.mia.models import Mia
 from itertools import groupby
@@ -50,25 +52,6 @@ def profile_detail(request):
     usuario = request.user
     my_filter_qs = Q()
     my_filter_qs = my_filter_qs | Q(user_id=request.user.id)
-    # obtengo todos los registros que ingreso en usuario registrado.
-    total_register = Mia.objects.filter(my_filter_qs)
-    resueltos_si = Mia.objects.filter(my_filter_qs & Q(resolucion_tiempo='SI')).count()
-    resueltos_no = Mia.objects.filter(my_filter_qs & Q(resolucion_tiempo='NO')).count()
-    trami_si = Mia.objects.filter(my_filter_qs & Q(tramite_tiempo='SI')).count()
-    trami_no = Mia.objects.filter(my_filter_qs & Q(tramite_tiempo='NO')).count()
-
-    # estatus de tramite por evaluador
-    tramite = Mia.objects.values('evaluador', 'bitacora').order_by('evaluador').exclude(evaluador__isnull=True)
-    # group_evalua = [len(list(group)) for key, group in groupby(evaluador)]
-
-    # ################### WARNING DELETE FROM DATA BASE #######################
-    # obtengo en nombre de los evaluadores, si se repiten se eliminan dejando solo uno.
-    # for placeholder in Mia.objects.all().order_by('evaluador'):
-    #     if placeholder.evaluador in evaluador:
-    #         placeholder.delete()
-    #     else:
-    #         evaluador.append(placeholder.evaluador)
-    ############################################################################
 
     evaluador = []
     newlist = []
@@ -87,15 +70,24 @@ def profile_detail(request):
     for v in newlist:
         list1 = Mia.objects.filter(evaluador=v)
         total_resueltos = Mia.objects.values_list('estatus').filter(evaluador=v, estatus='RESUELTO').count()
-        evalua_to_dic[v] = list1
+        total_tramite = Mia.objects.values_list('estatus').filter(evaluador=v, estatus='EN TRÁMITE').count()
 
-    # TIEMPOS POR EVALUADOR
+        now = datetime.date.today()
+        total_day = Mia.objects.values_list('fecha_ingreso', flat=True).filter(evaluador=v)
 
-    # print evalua_to_dic
+        for ttl in total_day:
+            # print (now - ttl).days
+            count_day = (now - ttl).days
 
-    # select * from mia where evaluador = [evaluador]
-    # list1 = Mia.objects.filter(evaluador='ALEJANDRO MARTÍNEZ')
-    # evalua_to_dic['ALEJANDRO MARTÍNEZ'] = list1
+        # cantidad = len(total_day)
+        # print cantidad
+
+        # print total_day
+        # print (now - total_day[0]).days
+
+        evalua_to_dic[v] = list1, total_resueltos, total_tramite, count_day
+
+    print evalua_to_dic
 
     return render_to_response('people/profile_detail.html', {
                                                             'usuario':usuario,
