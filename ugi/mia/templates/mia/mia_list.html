@@ -1,63 +1,65 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="page-header">
-    <a href="{% url 'ugi.mia.views.mia_new' %}" class="btn btn-primary pull-right">Cargar MIA</a>
-    <h2>Manifestación de Impacto Ambeintal</h2>
-  </div>
+  <div class="container">
+    <div class="page-header">
+      <a href="{% url 'ugi.mia.views.mia_new' %}" class="btn btn-primary pull-right">Cargar MIA</a>
+      <h2>Manifestación de Impacto Ambeintal</h2>
+    </div>
 
-		<!-- <form class="form-horizontal" method="get" action="/mia/">
-			<div class="form-group">
-	    	<label for="inputEmail3" class="col-sm-2 control-label">Buscar</label>
-	    <div class="col-sm-10">
-	      <input type="text" name="q" id="id_q" class="form-control" placeholder="Bitacora"/>
-	    </div>
-			<div class="form-group">
-		    <div class="col-sm-offset-2 col-sm-10">
-		      <input class="btn btn-primary" type="submit" value="Submit"/>
-		    </div>
-		  </div>
-    </form> -->
+  		<!-- <form class="form-horizontal" method="get" action="/mia/">
+  			<div class="form-group">
+  	    	<label for="inputEmail3" class="col-sm-2 control-label">Buscar</label>
+  	    <div class="col-sm-10">
+  	      <input type="text" name="q" id="id_q" class="form-control" placeholder="Bitacora"/>
+  	    </div>
+  			<div class="form-group">
+  		    <div class="col-sm-offset-2 col-sm-10">
+  		      <input class="btn btn-primary" type="submit" value="Submit"/>
+  		    </div>
+  		  </div>
+      </form> -->
 
-		<form class="form-horizontal">
-		  <div class="form-group">
-		    <label for="inputEmail3" class="col-sm-2 control-label">Buscar</label>
-		    <div class="col-sm-10">
-		      <input type="text" name="q" class="form-control" id="id_q" placeholder="Bitácora">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <div class="col-sm-offset-2 col-sm-10">
-		      <button type="submit" class="btn btn-default">Buscar</button>
-		    </div>
-		  </div>
-		</form>
-		{% for mia in found_entries %}
-		<article resource_id="{{ mia.id }}">
-			<div class="col-xs-12 item-container">
-				<div class="col-xs-12 profile-avatar">
-					<div class="col-xs-4 item-thumb">
-						<a href="{{ item.detail_url }}"><img ng-src="{{ item.thumbnail_url }}" /></a>
-					</div>
-					<div class="col-xs-8 item-details">
-						<p class="item-meta"><span class="item-category">{{ item.category__gn_description }}</span></p>
-						<h4><a href="{% url 'ugi.mia.views.mia_detail' pk=mia.pk %}">{{ mia.bitacora }}</a></h4>
-						<p class="abstract">{{ mia.nombre_proyecto|linebreaksbr}}</p>
-						<div class="row">
-							<div class="col-xs-12 item-items">
-								<ul class="list-inline">
-									<li><a href="/people/profile/{{ item.owner__username }}"><i class="fa fa-user"></i>{{ mia.user }}</a></li>
-									<li><a href="#"><i class="fa fa-calendar-o"></i>{{ mia.fecha_ingreso}}</a></li>
-									<li><a href="{{ item.detail_url }}"><i class="fa fa-eye"></i>{{ mia.evaluador }}</a></li>
-									<li><a href="{{ item.detail_url }}#share"><i class="fa fa-share"></i>{{ item.share_count }}</a></li>
-									<li><a href="{{ item.detail_url }}#rate"><i class="fa fa-star"></i>{{ item.rating }}</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</article>
-		{% endfor %}
+  		<form class="form-horizontal">
+  		  <div class="form-group">
+  		    <label for="inputEmail3" class="col-sm-2 control-label">Buscar</label>
+  		    <div class="col-sm-10">
+  		      <input type="text" name="q" class="form-control" id="id_q" placeholder="Bitácora">
+  		    </div>
+  		  </div>
+  		  <div class="form-group">
+  		    <div class="col-sm-offset-2 col-sm-10">
+  		      <button type="submit" class="btn btn-default">Buscar</button>
+  		    </div>
+  		  </div>
+  		</form>
+  		{% for mia in found_entries %}
+  		<article resource_id="{{ mia.id }}">
+  			<div class="col-xs-12 item-container">
+  				<div class="col-xs-12 profile-avatar">
+  					<div class="col-xs-4 item-thumb">
+  						<a href="{{ item.detail_url }}"><img ng-src="{{ item.thumbnail_url }}" /></a>
+  					</div>
+  					<div class="col-xs-8 item-details">
+  						<p class="item-meta"><span class="item-category">{{ item.category__gn_description }}</span></p>
+  						<h4><a href="{% url 'ugi.mia.views.mia_detail' pk=mia.pk %}">{{ mia.bitacora }}</a></h4>
+  						<p class="abstract">{{ mia.nombre_proyecto|linebreaksbr}}</p>
+  						<div class="row">
+  							<div class="col-xs-12 item-items">
+  								<ul class="list-inline">
+  									<li><a href="/people/profile/{{ item.owner__username }}"><i class="fa fa-user"></i>{{ mia.user }}</a></li>
+  									<li><a href="#"><i class="fa fa-calendar-o"></i>{{ mia.fecha_ingreso}}</a></li>
+  									<li><a href="{{ item.detail_url }}"><i class="fa fa-eye"></i>{{ mia.evaluador }}</a></li>
+  									<li><a href="{{ item.detail_url }}#share"><i class="fa fa-share"></i>{{ item.share_count }}</a></li>
+  									<li><a href="{{ item.detail_url }}#rate"><i class="fa fa-star"></i>{{ item.rating }}</a></li>
+  								</ul>
+  							</div>
+  						</div>
+  					</div>
+  				</div>
+  			</div>
+  		</article>
+  		{% endfor %}
+    </div>
 
 {% endblock %}

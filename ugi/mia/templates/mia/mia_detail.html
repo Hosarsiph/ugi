@@ -1,10 +1,87 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="page-header">
-    <a href="{% url 'ugi.mia.views.mia_edit' pk=mia.pk %}" class="btn btn-primary pull-right">Editar</a>
-    <h2>{{ mia.bitacora }}</h2>
+ <div class="container">
+
+   <div class="container">
+     <div class="row content">
+       <div class="col-sm-3 sidenav hidden-xs">
+         <h2>Aciones</h2>
+         <ul class="nav nav-pills nav-stacked">
+           <li><a href="/">INICIO</a></li>
+           <li ><a href="{% url 'ugi.mia.views.mia_edit' pk=mia.pk %}">EDITAR</a></li>
+           <li><a href="{% url 'ugi.mia.views.mia_new' %}">NUEVA MIA</a></li>
+         </ul><br>
+       </div>
+       <br>
+
+       <div class="col-sm-9">
+         <div class="well">
+           <h2>{{ mia.bitacora }}</h2>
+         </div>
+         <div class="row">
+           <div class="col-sm-3">
+             <div class="well">
+               <h4>Evaluador</h4>
+               <p>{{ mia.evaluador }}</p>
+             </div>
+           </div>
+           <div class="col-sm-3">
+             <div class="well">
+               <h4>Fecha ingreso</h4>
+               <p>{{ mia.fecha_ingreso }}</p>
+             </div>
+           </div>
+           <div class="col-sm-3">
+             <div class="well">
+               <h4>Tipo de trámite</h4>
+               <p>{{ mia.tipo_tramite}}</p>
+             </div>
+           </div>
+           <div class="col-sm-3">
+             <div class="well">
+               <h4>Unidad que firma</h4>
+               <p>{{ mia.unidad_firma }}</p>
+             </div>
+           </div>
+         </div>
+         <div class="row">
+           <div class="col-sm-4">
+             <div class="well">
+               <p>Text</p>
+               <p>Text</p>
+               <p>Text</p>
+             </div>
+           </div>
+           <div class="col-sm-4">
+             <div class="well">
+               <p>Text</p>
+               <p>Text</p>
+               <p>Text</p>
+             </div>
+           </div>
+           <div class="col-sm-4">
+             <div class="well">
+               <p>Text</p>
+               <p>Text</p>
+               <p>Text</p>
+             </div>
+           </div>
+         </div>
+         <div class="row">
+           <div class="col-sm-8">
+             <div class="well">
+               <p>Text</p>
+             </div>
+           </div>
+           <div class="col-sm-4">
+             <div class="well">
+               <p>Text</p>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
   </div>
-  <div class="col-xs-12 col-sm-6 col-md-8">.col-xs-12 .col-sm-6 .col-md-8</div>
-  <div class="col-xs-6 col-md-4"> INFORMACIÓN </div>
 {% endblock %}

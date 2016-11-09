@@ -94,6 +94,7 @@ def filter_date(request):
 
         return HttpResponse(json.dumps(objectQuerySet), content_type="application/json")
 
+
 """
 ########################################################## .:: DEV SEARCH  ::. ########################################################################################
 """
@@ -113,7 +114,6 @@ def normalize_query(query_string,
 def get_query(query_string, search_fields):
     ''' Returns a query, that is a combination of Q objects. That combination
         aims to search keywords within a model by testing the given search fields.
-
     '''
     query = None # Query to search for every search term
     terms = normalize_query(query_string)

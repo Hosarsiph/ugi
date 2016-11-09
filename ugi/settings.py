@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrapform',
+    'datetimewidget',
     'ugi',
     'ugi.people',
     'ugi.mia',
@@ -94,9 +95,9 @@ WSGI_APPLICATION = 'ugi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ugi',
-        'USER': 'postgres',
-        'PASSWORD': 'Geoint*2016', 
+        'NAME': '###',
+        'USER': '###',
+        'PASSWORD': '###',
         'HOST': 'localhost',
         'PORT': '5432',
     }

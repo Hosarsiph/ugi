@@ -18,21 +18,22 @@ class Mia(models.Model):
         ('MIA-P/ERA', 'MIA-P/ERA'),
     )
     lbl_subsector = (
-        ('PETROLEO', 'PETRÓLEO'),
-        ('PETROLIFEROS', 'PETROLÍFEROS'),
+        (u'PETRÓLEO', 'PETRÓLEO'),
+        (u'PETROLÍFEROS', 'PETROLÍFEROS'),
         ('GAS LP', 'GAS LP'),
         ('GAS NATURAL', 'GAS NATURAL'),
         ('RESIDUOS', 'RESIDUOS'),
+        ('DTU', 'DTU')
     )
     lbl_tipo_instalacion = (
-        ('EXPLORACION', 'EXPLORACIÓN'), #
-        ('ESTACION DE SERVICIO', 'ESTACIÓN DE SERVICIO'), #
+        (u'EXPLORACIÓN', 'EXPLORACIÓN'), #
+        (u'ESTACIÓN DE SERVICIO', 'ESTACIÓN DE SERVICIO'), #
         ('ALMACENAMIENTO', 'ALMACENAMIENTO'), #
         ('TRANSPORTE', 'TRANSPORTE'),
-        ('PLANTA DE DISTRIBUCION', 'PLANTA DE DISTRIBUCIÓN'),
-        ('RED DE DISTRIBUCION', 'RED DE DISTRIBUCIÓN'), #
-        ('PROSPECCION', 'PROSPECCIÓN'), #
-        ('DESCOMPRENSION DE GAS NATURAL', 'DESCOMPRENSIÓN DE GAS NATURAL'),
+        (u'PLANTA DE DISTRIBUCIÓN', 'PLANTA DE DISTRIBUCIÓN'),
+        (u'RED DE DISTRIBUCIÓN', 'RED DE DISTRIBUCIÓN'), #
+        (u'PROSPECCIÓN', 'PROSPECCIÓN'), #
+        (u'DESCOMPRENSIÓN DE GAS NATURAL', 'DESCOMPRENSIÓN DE GAS NATURAL'),
     )
     lbl_ubicacion_instalacion = (
         ('CARRETERA', 'CARRETERA'),
@@ -42,10 +43,14 @@ class Mia(models.Model):
     )
     lbl_estatus_proyect = (
         ('CONSTRUIDA', 'CONSTRUIDA'),
-        ('EN CONSTRUCCION', 'EN CONSTRUCCIÓN'),
-        ('OPERACION', 'OPERACIÓN'),
+        (u'EN CONSTRUCCIÓN', 'EN CONSTRUCCIÓN'),
+        (u'OPERACIÓN', 'OPERACIÓN'),
         ('NUEVA', 'NUEVA'),
         ('INICIO DE PROCEDIMIENTO', 'INICIO DE PROCEDIMIENTO')
+    )
+    lbl_estatus = (
+        ('RESUELTO', 'RESUELTO'),
+        (u'EN TRÁMITE', 'EN TRÁMITE')
     )
 
     """docstring for Mia."""
@@ -68,7 +73,7 @@ class Mia(models.Model):
     evaluador = models.CharField(max_length=64, null=True, blank=False)
     fecha_asigna_evaluador = models.DateField(null=True, blank=False)
     situacion_actual = models.CharField(max_length=128, null=True, blank=True)
-    estatus = models.CharField(max_length=254, null=True, blank=True)
+    estatus = models.CharField(max_length=254, choices=lbl_estatus, null=True, blank=True)
     numero_resolucion = models.CharField(max_length=128, null=True, blank=True)
     unidad_firma = models.CharField(max_length=16, null=True, blank=True)
     fecha_emisi_resolu = models.DateField(null=True, blank=False)
@@ -101,5 +106,5 @@ class Mia(models.Model):
     llave_pago = models.CharField(max_length=32, null=True, blank=True)
     user = models.ForeignKey(User)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.bitacora

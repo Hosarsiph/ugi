@@ -87,7 +87,6 @@ def profile_detail(request):
 
         evalua_to_dic[v] = list1, total_resueltos, total_tramite, count_day
 
-    print evalua_to_dic
 
     return render_to_response('people/profile_detail.html', {
                                                             'usuario':usuario,
