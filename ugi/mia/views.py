@@ -72,7 +72,7 @@ def filter_mia(request):
 
         # INGRESADOS
         admitted = Mia.objects.values_list('tipo_instalacion', flat=True).filter(fecha_ingreso__range=["2016-09-15", "2016-09-30"])
-        print admitted
+
 
         return render_to_response('mia/filter_mia.html',{'result':result}, context_instance=RequestContext(request))
 
@@ -82,17 +82,35 @@ def filter_date(request):
     if request.is_ajax():
         post_text = request.GET['the_post']
         post_text2 = request.GET['the_post2']
-        objectQuerySet = serializers.serialize('json', Mia.objects.filter(fecha_ingreso__range=[post_text, post_text2]))
+        month = request.GET['month']
+        # objectQuerySet = serializers.serialize('json', Mia.objects.filter(fecha_ingreso__range=[post_text, post_text2]))
+        #
+        # # LINEA BASE
+        # # select tipo_instalacion from mia_mia where estatus='EN TRÁMITE' AND subsector='GAS NATURAL' AND  tipo_tramite NOT IN('COFEMER') order by (tipo_instalacion);
+        # line_base =  Mia.objects.values_list('tipo_instalacion', flat=True).filter(Q(estatus='EN TRÁMITE') & Q(subsector='GAS NATURAL')).exclude(tipo_tramite='COFEMER').exclude(tipo_instalacion__exact='').order_by('tipo_instalacion')
+        # leg_lb = [len(list(group)) for key, group in groupby(line_base)] # count repeat element in list
+        # # SELECT * FROM mia_mia where tipo_tramite='COFEMER' AND subsector='GAS NATURAL' AND estatus='EN TRÁMITE';
+        # lb_cofemer = Mia.objects.filter(Q(tipo_tramite='COFEMER') & Q(subsector='GAS NATURAL') & Q(estatus='EN TRÁMITE')).count()
+        # leg_lb.append(lb_cofemer)
 
-        # LINEA BASE
-        # select tipo_instalacion from mia_mia where estatus='EN TRÁMITE' AND subsector='GAS NATURAL' AND  tipo_tramite NOT IN('COFEMER') order by (tipo_instalacion);
-        line_base =  Mia.objects.values_list('tipo_instalacion', flat=True).filter(Q(estatus='EN TRÁMITE') & Q(subsector='GAS NATURAL')).exclude(tipo_tramite='COFEMER').exclude(tipo_instalacion__exact='').order_by('tipo_instalacion')
-        leg_lb = [len(list(group)) for key, group in groupby(line_base)] # count repeat element in list
-        # SELECT * FROM mia_mia where tipo_tramite='COFEMER' AND subsector='GAS NATURAL' AND estatus='EN TRÁMITE';
-        lb_cofemer = Mia.objects.filter(Q(tipo_tramite='COFEMER') & Q(subsector='GAS NATURAL') & Q(estatus='EN TRÁMITE')).count()
-        leg_lb.append(lb_cofemer)
 
-        return HttpResponse(json.dumps(objectQuerySet), content_type="application/json")
+        data = []
+        count_tramite = []
+        cnt = []
+        ll = []
+        objectQuerySet = Mia.objects.values_list('unidad_firma', flat=True).filter(fecha_ingreso__range=[post_text, post_text2]).order_by('unidad_firma')
+        count_tramite.append(objectQuerySet)
+        for i in count_tramite[0]:
+            if i not in cnt:
+                cnt.append(i)
+
+        for v in cnt:
+            cnt_tram = Mia.objects.filter(fecha_ingreso__range=[post_text, post_text2], unidad_firma=v).count()
+            data.append([str(v) + "," % cnt_tram])
+
+        print data
+
+        return HttpResponse(json.dumps(data), content_type="application/json")
 
 
 """

@@ -95,9 +95,9 @@ WSGI_APPLICATION = 'ugi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '###',
-        'USER': '###',
-        'PASSWORD': '###',
+        'NAME': 'ugi',
+        'USER': 'postgres',
+        'PASSWORD': 'Geoint*2016',
         'HOST': 'localhost',
         'PORT': '5432',
     }
