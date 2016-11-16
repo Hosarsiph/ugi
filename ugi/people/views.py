@@ -4,6 +4,7 @@ import json
 import ast
 import datetime
 from datetime import date
+import math
 
 from django.shortcuts import render
 from django.contrib.auth.models import User
@@ -72,7 +73,7 @@ def profile_detail(request):
         total_resueltos = Mia.objects.values_list('estatus').filter(evaluador=v, estatus='RESUELTO').count()
         total_tramite = Mia.objects.values_list('estatus').filter(evaluador=v, estatus='EN TRÁMITE').count()
 
-        now = datetime.date.today()
+        now = datetime.date.today() # fecha actual
         total_day = Mia.objects.values_list('fecha_ingreso', flat=True).filter(evaluador=v)
 
         for ttl in total_day:
@@ -87,10 +88,38 @@ def profile_detail(request):
 
         evalua_to_dic[v] = list1, total_resueltos, total_tramite, count_day
 
+    # .:: REPORTE BIMESTRAL ::.
+    # ultimo Bimestre
+    tets_mes = 8
+
+    bimestre = []
+    data_con = []
+    q = math.floor(now.month/2)
+    residuo = now.month%2
+    # print("el cociente es: "+str(q))
+    # print("el residuo es: " + str(residuo))
+
+    if residuo == 0:
+        print 'primera condicion'
+    else:
+        print 'else'
+
+        ult_re = Mia.objects.filter(Q(fecha_ingreso__range=["2016-11-01", now], estatus='RESUELTO')).count()
+        # data_con.append(ult_re)
+        ult_tra = Mia.objects.filter(Q(fecha_ingreso__range=["2016-11-01", now], estatus='EN TRÁMITE')).count()
+
+    print json.dumps(data_con)
+    hh = json.dumps(data_con)
+
+
+
+    time_series = {"timestamp1": 1, "timestamp2": 2}
+    json_string = json.dumps(time_series)
 
     return render_to_response('people/profile_detail.html', {
                                                             'usuario':usuario,
                                                             'evalua_to_dic': evalua_to_dic,
+                                                            'time_series_json_string': json_string,
                                                             }, context_instance=RequestContext(request))
 
 

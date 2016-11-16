@@ -1,3 +1,59 @@
+NO. BITÁCORA
+FECHA DE INGRESO DE SOLICITUD
+ESTADO
+ESTADO(S)
+BENEFICIADO(S)
+MUNICIPIO(S) DE REALIZACIÓN DEL PROYECTO
+NOMBRE DEL PROYECTO	"PROMOVENTE
+NOMBRE / RAZÓN SOCIAL"
+REPRESENTANTE
+DATOS DEL CONTACTO
+SECTOR HIDROCARBURO
+
+TIPO DE INSTALACIÓN
+NOMBRE EVALUADOR TÉCNICO
+NOMBRE EVALUADOR JURÍDICO
+VEGETACIÓN POR AFECTAR
+SUPERFICIE SOLICITADA
+PAGO DE DERECHOS
+PLAZO DE EJECUCIÓN
+SUPERFICIE AUTORIZADA
+SOLICITUD DE REMISIÓ FORESTAL
+FECHA DE SOLICITUD DE REMISIÓN FORESTAL
+FECHA DE ASIGNACIÓN AL EVALUADOR TÉCNICO
+FECHA DE ASIGNACIÓN AL EVALUADOR LEGAL
+FECHA DE EMISIÓN DE LA INFORMACIÓN COMPLEMENTARIA
+FECHA DE NOTIFICACIÓN DE SOLICITUD DE INFORMACIÓN COMPLEMENTARIA
+FECHA DE SOLICITUD DE PRORROGA DE LA INFORMACIÓN COMPLEMENTARIA
+FECHA DE INGRESO DE LA INFORMACIÓN COMPLEMENTARIA
+FECHA DE SOLICITUD DE OPINIÓN CEF
+FECHA DE NOTIFICACIÓN DE VISITA TÉCNICA
+FECHA DE VISITA TÉCNICA	FECHA DE ENTRADA DE DESISTIMIENTO
+FECHA DE SOLICITUD DE PAGO AL FONDO FORESTAL MEXICANO
+FECHA DEPOSITO AL FONDO FORESTAL MEXICANO
+FECHA DE SOLICITUD DE PRÓRROGA DE PLAZO
+MONTO PAGO AL FONDO FORESTAL MEXICANO ($)
+FOLIO ÚNICO DE CONAFOR
+"ESTATUS ETAPA PROCESO"
+FECHA DE RESOLUTIVO
+FECHA DE NOTIFICACIÓN DE RESOLUTIVO
+NÚMERO DE OFICIO DE RESOLUTIVO
+RESULTADO
+DG FIRMA
+OBSERVACIONES
+ESTATUS GENERAL
+DÍAS TRANSCURRIDOS PAGO AL FONDO FORESTAL MEXICANO
+DÍAS TRANSCURRIDOS DE INFORMACIÓN COMPLEMENTARIA
+DÍAS TRANSCURRIDOS A LA EMISIÓN DE RESOLUCIÓN
+RESUELTO EN TIEMPO
+TIEMPOS TRANSCURRIDOS DE ELABORACIÓN DE RESOLUCIÓN
+DÍAS FERIADOS
+DÍAS INHÁBILES
+
+
+
+
+
 # -*- coding: utf-8 -*-
 from django.utils.translation import ugettext as _
 from django.db import models
@@ -17,23 +73,18 @@ class Mia(models.Model):
         ('MIA-P', 'MIA-P'),
         ('MIA-P/ERA', 'MIA-P/ERA'),
     )
-    lbl_subsector = (
-        (u'PETRÓLEO', 'PETRÓLEO'),
+    lbl_sector = (
         (u'PETROLÍFEROS', 'PETROLÍFEROS'),
         ('GAS LP', 'GAS LP'),
         ('GAS NATURAL', 'GAS NATURAL'),
-        ('RESIDUOS', 'RESIDUOS'),
-        ('DTU', 'DTU')
     )
     lbl_tipo_instalacion = (
-        (u'EXPLORACIÓN', 'EXPLORACIÓN'), #
-        (u'ESTACIÓN DE SERVICIO', 'ESTACIÓN DE SERVICIO'), #
-        ('ALMACENAMIENTO', 'ALMACENAMIENTO'), #
-        ('TRANSPORTE', 'TRANSPORTE'),
+        (u'ESTACIÓN DE COMPRESIÓN', 'ESTACIÓN DE COMPRESIÓN'),
+        (u'ESTACIÓN DE MEDICIÓN, EGULACIÓN', 'ESTACIÓN DE MEDICIÓN, EGULACIÓN'),
+        (u'ESTACIÓN DE SERVICIO', 'ESTACIÓN DE SERVICIO'),
+        (u'GASODUCTO', 'GASODUCTO'),
         (u'PLANTA DE DISTRIBUCIÓN', 'PLANTA DE DISTRIBUCIÓN'),
-        (u'RED DE DISTRIBUCIÓN', 'RED DE DISTRIBUCIÓN'), #
-        (u'PROSPECCIÓN', 'PROSPECCIÓN'), #
-        (u'DESCOMPRENSIÓN DE GAS NATURAL', 'DESCOMPRENSIÓN DE GAS NATURAL'),
+        ('TRANSPORTE', 'TRANSPORTE'),
     )
     lbl_ubicacion_instalacion = (
         ('CARRETERA', 'CARRETERA'),
@@ -53,31 +104,29 @@ class Mia(models.Model):
         (u'EN TRÁMITE', 'EN TRÁMITE')
     )
 
-    # position = models.CharField(
-    #     _('Position Name'),
-    #     max_length=255,
-    #     blank=True,
-    #     null=True,
-    #     help_text=_('role or position of the responsible person'))
-
-    """docstring for Mia."""
-    fecha_ingreso = models.DateField(_('Fecha de Ingreso'),null=True, blank=False)
-    dias_evaluacion = models.IntegerField(default=0, null=True, blank=False)
-    tramite_tiempo = models.CharField(max_length=2, choices=a_tiempo, default='SI', null=True, blank=False)
-    tipo_tramite = models.CharField(_(u'Tipo de trámite'),max_length=32, choices=lbl_tipo_tramite, default='COFEMER', null=True, blank=False)
+    """docstring for Custf."""
     bitacora = models.CharField(_(u'Número de bitacora'),max_length=32)
-    numero_proyecto = models.CharField(_(u'Número de proyecto'),max_length=32, null=True, blank=True)
+    fecha_ingreso = models.DateField(_('Fecha de Ingreso'),null=True, blank=False)
     estado_principal = models.CharField(_('Estado principal'),max_length=64, null=True, blank=True)
     estados = models.CharField(_('Estados'),max_length=64, null=True, blank=True, help_text=_('Estados que abarca el proyecto'))
     municipio = models.CharField(_('Municipio'),max_length=128, null=True, blank=True, help_text=_('Municipio que abarca el proyecto'))
-    domicilio = models.CharField(_('Domicilio del Regulado'),max_length=254, null=True, blank=True)
     nombre_proyecto = models.CharField(_('Nombre del proyecto'),max_length=512, null=True, blank=True)
-    regulado = models.CharField(_('Nombre del Regulado'), max_length=254, null=True, blank=True)
+    nombre_razon_social = models.CharField(_(u'Nombre/Razón Social'), max_length=254, null=True, blank=True)
     representante_legal = models.CharField(_('Representante legal'),max_length=254, null=True, blank=True)
-    subsector = models.CharField(_('Subsector'),max_length=32, choices=lbl_subsector, null=True, blank=False)
+    datos_contacto = models.CharField(_('Datos del contacto'), max_length=254, null=True, blank=True)
+    sector_hidrocarburo = models.CharField(_('Sector hidrocarburo'),max_length=32, choices=lbl_sector, null=True, blank=False)
     tipo_instalacion = models.CharField(_(u'Tipo de instalación'),max_length=64, choices=lbl_tipo_instalacion, null=True, blank=False)
+    evaluador_tecnico = models.CharField(_(u'Nombre del Evaluador Técnico'),max_length=64, null=True, blank=False)
+    evaluador_juridico = models.CharField(_('Nombre del Evaluador Juidico'),max_length=64, null=True, blank=False)
+    vegetacion_afectar = models.CharField(_('Vegetación por afectar'),max_length=128, null=True, blank=False)
+    superficie_solicitada = models.FloatField(_('Superficie solicitada'))
+
+    dias_evaluacion = models.IntegerField(default=0, null=True, blank=False)
+    tramite_tiempo = models.CharField(max_length=2, choices=a_tiempo, default='SI', null=True, blank=False)
+    tipo_tramite = models.CharField(_(u'Tipo de trámite'),max_length=32, choices=lbl_tipo_tramite, default='COFEMER', null=True, blank=False)
+    numero_proyecto = models.CharField(_(u'Número de proyecto'),max_length=32, null=True, blank=True)
+    domicilio = models.CharField(_('Domicilio del Regulado'),max_length=254, null=True, blank=True)
     ubicacion_instalacion = models.CharField(_(u'Ubicación de la instalación'),max_length=64, choices=lbl_ubicacion_instalacion, null=True, blank=False)
-    evaluador = models.CharField(_('Nombre del Evaluador'),max_length=64, null=True, blank=False)
     fecha_asigna_evaluador = models.DateField(_(u'Fecha de asignación al Evaluador'),null=True, blank=False)
     situacion_actual = models.CharField(_(u'Situación actual'),max_length=128, null=True, blank=True)
     estatus = models.CharField(_('Estatus del proyecto'),max_length=254, choices=lbl_estatus, null=True, blank=True)

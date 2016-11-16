@@ -27,45 +27,58 @@
              console.log(json); // log the returned json to the console
              // console.log("success"); // another sanity check
 
-        /* ############ REQUIREMENTS #################
-          models ==> tipo_instalacion (Y)
 
-        */
-          /* REPORTE ANUAL */
+          /*   */
           Highcharts.chart('container', {
-             chart: {
-                 type: 'pie',
-                 options3d: {
-                     enabled: true,
-                     alpha: 45,
-                     beta: 0
-                 }
-             },
-             title: {
-                 text: 'Browser market shares at a specific website, 2014'
-             },
-             tooltip: {
-                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-             },
-             plotOptions: {
-                 pie: {
-                     allowPointSelect: true,
-                     cursor: 'pointer',
-                     depth: 35,
-                     dataLabels: {
-                         enabled: true,
-                         format: '{point.name}'
-                     }
-                 }
-             },
-             series: [{
-                 type: 'pie',
-                 name: 'Browser share',
-                 data: json
-             }]
-         });
+            chart: {
+                type: 'pie',
+                options3d: {
+                    enabled: true,
+                    alpha: 45,
+                    beta: 0
+                }
+            },
+            title: {
+                text: 'Ingreso de trámites de ' + $('#filter1').val() + ' a ' +  $('#filter2').val()
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    depth: 35,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}'
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Browser share',
+                data: json
+            }]
+        });
 
-          /* FIN REPORTE ANUAL*/
+          /*   */
+
+          myRecords = [
+                  {
+                    "band": "Weezer",
+                    "song": "El Scorcho"
+                  },
+                  {
+                    "band": "Chevelle",
+                    "song": "Family System"
+                  }
+                ]
+          $('#table_query').dynatable({
+            dataset: {
+              records: myRecords
+            }
+          });
 
 
          },

@@ -15,10 +15,22 @@
 	      <div class="well">
 	        <h5>Trámites</h5>
 					<ul class="list-group">
-					  <li class="list-group-item">
-					    <!-- <span class="badge">{{ mia_total.count }}</span> -->
-					  <a href="{% url 'ugi.mia.views.mia_list' %}">MIA</a></li>
-					  </li>
+
+						<li class="list-group-item">
+							<!-- <span class="badge">{{ mia_total.count }}</span> -->
+							<a href="{% url 'ugi.mia.views.mia_list' %}">MIA</a></li>
+							<!-- Large modal -->
+							<button class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">números</button>
+
+							<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+							  <div class="modal-dialog modal-lg">
+							    <div class="modal-content">
+							      <div id="resumen" style="height: 400px"></div>
+							    </div>
+							  </div>
+							</div>
+							<!-- End Large modal -->
+						</li>
 					</ul>
 	      </div>
 	    </div>
@@ -116,4 +128,8 @@
 
 	  </div>
 	</div>
+	
+	{% block extra_script %}
+	{% include "resumen.js" %}
+	{% endblock extra_script %}
 {% endblock %}

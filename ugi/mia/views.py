@@ -66,6 +66,11 @@ def mia_edit(request, pk):
             form = MiaForm(instance=mia)
         return render(request, 'mia/mia_edit.html', {'form': form})
 
+# def analysis_mia(self):
+#
+#     archie = 'archie'
+#     return render_to_response('mia/analysis_mia.html', {'archie':archie}, context_instance=RequestContext(request))
+
 def filter_mia(request):
 
         result = Mia.objects.filter(fecha_ingreso__range=["2016-08-01", "2016-08-02"])
@@ -73,8 +78,9 @@ def filter_mia(request):
         # INGRESADOS
         admitted = Mia.objects.values_list('tipo_instalacion', flat=True).filter(fecha_ingreso__range=["2016-09-15", "2016-09-30"])
 
+        archie = 'archie'
 
-        return render_to_response('mia/filter_mia.html',{'result':result}, context_instance=RequestContext(request))
+        return render_to_response('mia/filter_mia.html',{'archie':archie}, context_instance=RequestContext(request))
 
 
 def filter_date(request):
@@ -82,7 +88,7 @@ def filter_date(request):
     if request.is_ajax():
         post_text = request.GET['the_post']
         post_text2 = request.GET['the_post2']
-        month = request.GET['month']
+
         # objectQuerySet = serializers.serialize('json', Mia.objects.filter(fecha_ingreso__range=[post_text, post_text2]))
         #
         # # LINEA BASE
@@ -97,20 +103,28 @@ def filter_date(request):
         data = []
         count_tramite = []
         cnt = []
-        ll = []
         objectQuerySet = Mia.objects.values_list('unidad_firma', flat=True).filter(fecha_ingreso__range=[post_text, post_text2]).order_by('unidad_firma')
         count_tramite.append(objectQuerySet)
         for i in count_tramite[0]:
             if i not in cnt:
                 cnt.append(i)
-
+        data_add = []
         for v in cnt:
             cnt_tram = Mia.objects.filter(fecha_ingreso__range=[post_text, post_text2], unidad_firma=v).count()
-            data.append([str(v) + "," % cnt_tram])
+            data.append([v, cnt_tram])
 
-        print data
+        myRecords = [
+            {
+              "band": "Weezer",
+              "song": "El Scorcho"
+            },
+            {
+              "band": "Chevelle",
+              "song": "Family System"
+            }
+          ]
 
-        return HttpResponse(json.dumps(data), content_type="application/json")
+        return HttpResponse(json.dumps(data, myRecords), content_type="application/json")
 
 
 """
