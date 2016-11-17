@@ -92,8 +92,7 @@ def profile_detail(request):
     # ultimo Bimestre
     tets_mes = 8
 
-    bimestre = []
-    data_con = []
+    time_series = [[],[]]
     q = math.floor(now.month/2)
     residuo = now.month%2
     # print("el cociente es: "+str(q))
@@ -101,25 +100,45 @@ def profile_detail(request):
 
     if residuo == 0:
         print 'primera condicion'
+
     else:
         print 'else'
+        b1_resu = Mia.objects.filter(Q(fecha_ingreso__range=["2016-01-01", "2016-02-29"], estatus='RESUELTO')).count()
+        time_series[0].append(b1_resu)
+        b1_tra =  Mia.objects.filter(Q(fecha_ingreso__range=["2016-01-01", "2016-02-29"], estatus='EN TRÁMITE')).count()
+        time_series[1].append(b1_tra)
+
+        b2_resu = Mia.objects.filter(Q(fecha_ingreso__range=["2016-03-01", "2016-04-30"], estatus='RESUELTO')).count()
+        time_series[0].append(b2_resu)
+        b2_tra =  Mia.objects.filter(Q(fecha_ingreso__range=["2016-03-01", "2016-04-30"], estatus='EN TRÁMITE')).count()
+        time_series[1].append(b2_tra)
+
+        b3_resu = Mia.objects.filter(Q(fecha_ingreso__range=["2016-05-01", "2016-06-30"], estatus='RESUELTO')).count()
+        time_series[0].append(b3_resu)
+        b3_tra =  Mia.objects.filter(Q(fecha_ingreso__range=["2016-05-01", "2016-06-30"], estatus='EN TRÁMITE')).count()
+        time_series[1].append(b3_tra)
+
+        b4_resu = Mia.objects.filter(Q(fecha_ingreso__range=["2016-07-01", "2016-08-30"], estatus='RESUELTO')).count()
+        time_series[0].append(b4_resu)
+        b4_tra =  Mia.objects.filter(Q(fecha_ingreso__range=["2016-07-01", "2016-08-30"], estatus='EN TRÁMITE')).count()
+        time_series[1].append(b4_tra)
+
+        b4_resu = Mia.objects.filter(Q(fecha_ingreso__range=["2016-09-01", "2016-10-30"], estatus='RESUELTO')).count()
+        time_series[0].append(b4_resu)
+        b4_tra =  Mia.objects.filter(Q(fecha_ingreso__range=["2016-09-01", "2016-10-30"], estatus='EN TRÁMITE')).count()
+        time_series[1].append(b4_tra)
 
         ult_re = Mia.objects.filter(Q(fecha_ingreso__range=["2016-11-01", now], estatus='RESUELTO')).count()
-        # data_con.append(ult_re)
+        time_series[0].append(ult_re)
         ult_tra = Mia.objects.filter(Q(fecha_ingreso__range=["2016-11-01", now], estatus='EN TRÁMITE')).count()
+        time_series[1].append(ult_tra)
 
-    print json.dumps(data_con)
-    hh = json.dumps(data_con)
-
-
-
-    time_series = {"timestamp1": 1, "timestamp2": 2}
-    json_string = json.dumps(time_series)
+    print time_series
 
     return render_to_response('people/profile_detail.html', {
-                                                            'usuario':usuario,
+                                                            'usuario': usuario,
                                                             'evalua_to_dic': evalua_to_dic,
-                                                            'time_series_json_string': json_string,
+                                                            'time_series_json_string': json.dumps(time_series),
                                                             }, context_instance=RequestContext(request))
 
 
