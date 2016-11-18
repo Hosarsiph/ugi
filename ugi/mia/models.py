@@ -96,7 +96,7 @@ class Mia(models.Model):
     dias_transcurre_apercibimiento = models.CharField(_(u'Días transcurridos de apercibimiento'),max_length=32, null=True, blank=True)
     numero_of_infoadicional = models.CharField(_(u'Número de información adicional'),max_length=32, null=True, blank=True)
     fecha_of_infoadicional = models.DateField(_(u'Fecha de información adicional'),null=True, blank=False)
-    fecha_notifi_of_infoadicional = models.DateField(_(u'Fecha de información adicional'),null=True, blank=False)
+    fecha_notifi_of_infoadicional = models.DateField(_(u'Fecha de notificación información adicional'),null=True, blank=False)
     fecha_vernci_of_infoadicional = models.DateField(_(u'Fecha de vencimiento de información adicional'),null=True, blank=False)
     fecha_entrega_of_infoadicional = models.DateField(_(u'Fecha de entrega de información adicional'),null=True, blank=False)
     dias_transcurre_of_infoadicional =  models.IntegerField(_(u'Días trasncurridos de información adicional'),default=0, null=True, blank=False)

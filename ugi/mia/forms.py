@@ -16,6 +16,24 @@ class MiaForm(ModelForm):
 
     class Meta:
         model = Mia
+        """
+        fields = [
+            'fecha_ingreso',
+            'bitacora',
+            'numero_proyecto',
+            'nombre_proyecto',
+            'tipo_instalacion',
+            'subsector',
+            'ubicacion_instalacion',
+            'lati',
+            'longi',
+            'estado_principal',
+            'estados',
+            'municipio',
+            'regulado',
+            'domicilio'
+            ]
+        """
         widgets = {
             # Use localization and bootstrap 3
             'fecha_ingreso': DateWidget(attrs={'id':"id_fecha_ingreso"}, usel10n = True, bootstrap_version=3),
@@ -32,4 +50,4 @@ class MiaForm(ModelForm):
             'fecha_vernci_of_infoadicional': DateWidget(attrs={'id':"id_fecha_vernci_of_infoadicional"}, usel10n = True, bootstrap_version=3),
             'fecha_entrega_of_infoadicional': DateWidget(attrs={'id':"id_fecha_entrega_of_infoadicional"}, usel10n = True, bootstrap_version=3)
         }
-        exclude = ['id', 'user', 'dias_evaluacion', 'dias_feriado', 'dias_feriado', 'dias_habiles']
+        exclude = ['id', 'user']
